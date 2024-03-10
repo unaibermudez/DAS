@@ -1,39 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- task_item_layout.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp">
 
-    <TextView
-        android:id="@+id/textViewTaskName"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textViewTaskDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewTaskName"
-        android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textViewTaskName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textViewDueDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewTaskDescription"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textViewTaskDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTaskName"
+            android:textSize="16sp" />
 
-    <Button
-        android:id="@+id/buttonDeleteTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="Delete"
-        android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
-        android:layout_below="@id/textViewDueDate" />
+        <TextView
+            android:id="@+id/textViewDueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTaskDescription"
+            android:textSize="14sp" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/buttonEditTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_marginEnd="8dp"
+            android:layout_toStartOf="@id/buttonDeleteTask"
+            android:layout_below="@id/textViewDueDate" />
+
+        <Button
+            android:id="@+id/buttonDeleteTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:backgroundTint="#FF1100"
+            android:textColor="@android:color/white"
+            android:layout_below="@id/textViewDueDate"
+
+
+            android:layout_alignParentEnd="true"/>
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -25,9 +25,10 @@ public class TaskDBHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT NOT NULL, " +
                 "description TEXT, " +
-                "due_date TEXT)";
+                "due_date DATE)"; // Use DATE data type for due_date column
         db.execSQL(SQL_CREATE_TASKS_TABLE);
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -72,4 +73,43 @@ public class TaskDBHelper extends SQLiteOpenHelper {
         db.delete("tasks", "id=?", new String[]{String.valueOf(taskId)});
         db.close();
     }
+    public Task getTask(int taskId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Task task = null;
+
+        Cursor cursor = db.query(
+                "tasks",
+                new String[]{"id", "name", "description", "due_date"},
+                "id = ?",
+                new String[]{String.valueOf(taskId)},
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String description = cursor.getString(cursor.getColumnIndex("description"));
+            String dueDate = cursor.getString(cursor.getColumnIndex("due_date"));
+
+            task = new Task(id, name, description, dueDate);
+            cursor.close();
+        }
+
+        return task;
+    }
+
+    public void updateTask(Task task) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", task.getName());
+        values.put("description", task.getDescription());
+        values.put("due_date", task.getDueDate());
+
+        // Update the task in the database
+        db.update("tasks", values, "id=?", new String[]{String.valueOf(task.getId())});
+        db.close();
+    }
+
 }

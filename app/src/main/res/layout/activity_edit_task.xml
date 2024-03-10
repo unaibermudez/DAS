@@ -4,30 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".EditTaskActivity">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="?attr/actionBarTheme"
-        app:title="Unai's Task Manager"
-        app:titleTextColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- EditTexts and Buttons -->
     <EditText
         android:id="@+id/editTextTaskName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Task Name *"
+        android:layout_marginTop="32dp"
+        android:hint="Task Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextTaskDescription"
@@ -37,15 +24,14 @@
         android:hint="Task Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTaskName"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTaskName" />
 
     <EditText
         android:id="@+id/editTextDueDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Due Date *"
+        android:hint="Due Date"
         android:focusable="false"
         android:onClick="showDatePickerDialog"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,28 +39,27 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTaskDescription" />
 
     <Button
-        android:id="@+id/buttonAddTask"
+        android:id="@+id/buttonSaveTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Task"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonCancel"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDueDate"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
-        android:id="@+id/buttonShowTasks"
+        android:id="@+id/buttonCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Tasks"
-        android:textColorHighlight="#FF8F6C"
-        android:textColorLink="@color/white"
+        android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAddTask" />
-
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buttonSaveTask"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDueDate"
+        app:layout_constraintVertical_bias="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
