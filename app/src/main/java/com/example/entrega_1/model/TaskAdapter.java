@@ -1,5 +1,6 @@
 package com.example.entrega_1.model;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.entrega_1.EditTaskActivity;
 import com.example.entrega_1.R;
@@ -97,14 +99,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         });
 
 
-
+        // Set click listener for delete button
         holder.buttonDeleteTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle delete button click
-                if (onDeleteClickListener != null) {
-                    onDeleteClickListener.onDeleteClick(position);
-                }
+                // Show confirmation dialog before deleting the task
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Confirm Delete");
+                builder.setMessage("Are you sure you want to delete this task?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Call onDeleteClick method to handle task deletion
+                        if (onDeleteClickListener != null) {
+                            onDeleteClickListener.onDeleteClick(position);
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Dismiss the dialog
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
