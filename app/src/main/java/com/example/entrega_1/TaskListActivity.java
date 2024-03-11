@@ -30,7 +30,6 @@ public class TaskListActivity extends AppCompatActivity implements TaskAdapter.O
         // Set up the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Task List"); // Set the title for the toolbar
 
         // Enable the back button in the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

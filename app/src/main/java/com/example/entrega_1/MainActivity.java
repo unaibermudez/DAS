@@ -1,5 +1,6 @@
 package com.example.entrega_1;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
@@ -11,9 +12,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,9 +42,22 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextTaskDescription;
     EditText editTextDueDate;
 
+    // Define a request code to identify the settings activity
+    private static final int SETTINGS_REQUEST_CODE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Retrieve the saved language from SharedPreferences
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String selectedLanguage = preferences.getString("selected_language", "");
+
+        // Set the saved language
+        if (!selectedLanguage.isEmpty()) {
+            setLocale(selectedLanguage);
+        }
+
         setContentView(R.layout.activity_main);
 
         // Initialize UI components
@@ -67,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 // Check if the task name and due date are empty
                 if (taskName.isEmpty() || dueDate.isEmpty()) {
                     // Show error message
-                    Toast toast = Toast.makeText(MainActivity.this, "Task name and due date are required.", Toast.LENGTH_SHORT);
+                    int toastMessageResId = R.string.task_name_due_date_required;
+                    String toastMessage = getString(toastMessageResId);
+
+                    Toast toast = Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0); // Set the position to top center
                     toast.show();
 
@@ -89,9 +110,13 @@ public class MainActivity extends AppCompatActivity {
 
                     // Display toast message indicating success or failure
                     if (newRowId != -1) {
-                        Toast.makeText(MainActivity.this, "Task added successfully!", Toast.LENGTH_SHORT).show();
+                        int toastMessageResId = R.string.task_added_successfully;
+                        String toastMessage = getString(toastMessageResId);
+                        Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(MainActivity.this, "Failed to add task.", Toast.LENGTH_SHORT).show();
+                        int toastMessageResId = R.string.task_added_failed;
+                        String toastMessage = getString(toastMessageResId);
+                        Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
                     }
 
                     // Step 2: Display Notification
@@ -157,11 +182,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TaskListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+        int toastMessageResId = R.string.task_added_notification;
+        String icon = getString(toastMessageResId);
+        int toastMessageResId2 = R.string.task_added_notification_text;
+        String title = getString(toastMessageResId2);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
                 .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("Task Added")
-                .setContentText("A new task has been added")
+                .setContentTitle(icon)
+                .setContentText(title)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
@@ -169,7 +197,6 @@ public class MainActivity extends AppCompatActivity {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(1, builder.build());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -184,11 +211,34 @@ public class MainActivity extends AppCompatActivity {
             // Example: Share app link
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool app: https://example.com");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out this cool app: https://github.com/unaibermudez/DAS_Entrega1");
             startActivity(Intent.createChooser(shareIntent, "Share via"));
+            return true;
+        } else if (item.getItemId() == R.id.action_settings) {
+            // Handle settings button click
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivityForResult(intent, SETTINGS_REQUEST_CODE);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    // Define a method to handle the result when returning from SettingsActivity
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SETTINGS_REQUEST_CODE && resultCode == RESULT_OK) {
+            // Refresh the activity to apply language changes
+            recreate();
+        }
+    }
+
+    private void setLocale(String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+    }
 }

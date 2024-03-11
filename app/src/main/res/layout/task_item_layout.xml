@@ -36,7 +36,7 @@
             android:id="@+id/buttonEditTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
+            android:text="@string/edit"
             android:layout_marginEnd="8dp"
             android:layout_toStartOf="@id/buttonDeleteTask"
             android:layout_below="@id/textViewDueDate" />
@@ -45,7 +45,7 @@
             android:id="@+id/buttonDeleteTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
+            android:text="@string/delete"
             android:backgroundTint="#FF1100"
             android:textColor="@android:color/white"
             android:layout_below="@id/textViewDueDate"

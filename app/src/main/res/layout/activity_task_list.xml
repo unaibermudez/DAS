@@ -10,6 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/list_toolbar_title"
         app:titleTextColor="@android:color/white" />
 
     <!-- Your RecyclerView -->

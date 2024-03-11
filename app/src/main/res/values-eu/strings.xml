@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Unairen Zereginen Kudeatzailea</string>
+    <string name="channel_name">Zure kanalaren izena</string>
+    <string name="channel_description">Zure kanalaren Deskribapena</string>
+    <string name="main_toolbar_title">Unairen Zereginen Kudeatzailea</string>
+    <string name="settings_toolbar_title">Ezarpenak</string>
+    <string name="main_task_name">Zereginaren izena *</string>
+    <string name="language_changed_toast">Hizkuntza aldatua</string>
+    <string name="app_language_selector">Hizkuntza:</string>
+    <string name="main_task_description">Zereginaren Deskribapena</string>
+    <string name="main_due_date">Epe Data *</string>
+    <string name="add_task">Gehitu zeregina</string>
+    <string name="show_tasks">Erakutsi Zereginak</string>
+    <string name="save">Gorde</string>
+    <string name="cancel">Utzi</string>
+    <string name="edit">Editatu</string>
+    <string name="delete">Ezabatu</string>
+    <string name="list_toolbar_title" >Zereginen Zerrenda</string>
+    <string name="task_name_due_date_required" >Zereginaren izena eta epemuga behar dira.</string>
+    <string name="task_added_successfully" >Zeregina gehuituta</string>
+    <string name="task_added_failed" >Errore bat gertatu da zeregina gehitzean</string>
+    <string name="task_added_notification" >Gehitutako zeregina!</string>
+    <string name="task_added_notification_text" >Zeregin berri bat gehitu da</string>
+
+
+</resources>

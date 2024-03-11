@@ -1,6 +1,32 @@
 <resources>
     <string name="app_name">Unai´s Task Manager</string>
-    <string name="channel_name">Channel Name</string>
-    <string name="channel_description">Channel Description</string>
+    <string name="channel_name">Your Channel Name</string>
+    <string name="channel_description">Your Channel Description</string>
+    <string name="main_toolbar_title">Unai´s Task Manager</string>
+    <string name="settings_toolbar_title">Settings</string>
+    <string name="main_task_name">Task Name *</string>
+    <string name="language_changed_toast">Language changed</string>
+    <string name="app_language_selector">Language:</string>
+    <string name="main_task_description">Task Description</string>
+    <string name="main_due_date">Due Date *</string>
+    <string name="add_task">Add Task</string>
+    <string name="show_tasks">Show Tasks</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="list_toolbar_title" >Task List</string>
+    <string name="task_name_due_date_required" >Task name and due date are required.</string>
+    <string name="task_added_successfully" >Task added successfully</string>
+    <string name="task_added_failed" >Failed to add task</string>
+    <string name="task_added_notification" >Task Added!</string>
+    <string name="task_added_notification_text" >A new task has been added</string>
+
+    <string-array name="languages_array">
+        <item>English</item>
+        <item>Spanish</item>
+        <item>Basque</item>
+    </string-array>
+
 
 </resources>

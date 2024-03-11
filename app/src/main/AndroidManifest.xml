@@ -4,8 +4,10 @@
     package="com.example.entrega_1">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
+        android:allowTaskReparenting="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -13,22 +15,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Entrega_1"
-        android:allowTaskReparenting="true"
         tools:targetApi="31">
-
         <activity
-            android:name=".EditTaskActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".TaskListActivity"
-            android:parentActivityName=".MainActivity">
-            <!-- Specify the parent activity for this activity -->
+            android:name=".SettingsActivity"
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
+        <activity
+            android:name=".EditTaskActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TaskListActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
