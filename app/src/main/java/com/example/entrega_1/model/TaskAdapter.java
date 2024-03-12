@@ -104,10 +104,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             @Override
             public void onClick(View v) {
                 // Show confirmation dialog before deleting the task
+                String title = v.getContext().getString(R.string.confirm_delete_title);
+                String message = v.getContext().getString(R.string.confirm_delete_message);
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-                builder.setTitle("Confirm Delete");
-                builder.setMessage("Are you sure you want to delete this task?");
-                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                builder.setTitle(title);
+                builder.setMessage(message);
+                String delete = v.getContext().getString(R.string.delete);
+                builder.setPositiveButton(delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Call onDeleteClick method to handle task deletion
@@ -116,7 +119,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                String cancel = v.getContext().getString(R.string.cancel);
+                builder.setNegativeButton(cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Dismiss the dialog

@@ -22,6 +22,8 @@
         <string name="task_added_failed" >Error al añadir tarea</string>
         <string name="task_added_notification" >Tarea Añadida!</string>
         <string name="task_added_notification_text" >Se ha añadido una nueva tarea</string>
+    <string name="confirm_delete_title" >Confirmar Eliminar</string>
+        <string name="confirm_delete_message" >¿Estás seguro de que deseas eliminar esta tarea?</string>
 
 
 </resources>

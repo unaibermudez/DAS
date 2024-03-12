@@ -22,6 +22,8 @@
     <string name="task_added_failed" >Errore bat gertatu da zeregina gehitzean</string>
     <string name="task_added_notification" >Gehitutako zeregina!</string>
     <string name="task_added_notification_text" >Zeregin berri bat gehitu da</string>
+    <string name="confirm_delete_title" >Berretsi ezabatzea</string>
+    <string name="confirm_delete_message" >Ziur zeregin hau ezabatu nahi duzula?</string>
 
 
 </resources>
