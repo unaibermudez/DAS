@@ -1,31 +1,34 @@
 package com.example.entrega_1;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.NavUtils;
-
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
-import java.util.Locale;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
+import androidx.preference.PreferenceManager;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_settings);
 
         // Initialize the toolbar
@@ -35,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
         // Enable back button on the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize language spinner
         Spinner languageSpinner = findViewById(R.id.spinnerLanguage);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.languages_array, android.R.layout.simple_spinner_item);
@@ -51,7 +55,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 String selectedLanguage = parentView.getItemAtPosition(position).toString();
-                setLocale(selectedLanguage);
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(SettingsActivity.this);
+                String currentLanguage = preferences.getString("selected_language", "");
+
+                // Check if the selected language is different from the current language
+                if (!selectedLanguage.equals(getLanguageName(currentLanguage))) {
+                    setLocale(selectedLanguage);
+                    recreate();
+                }
             }
 
             @Override
@@ -59,12 +70,22 @@ public class SettingsActivity extends AppCompatActivity {
                 // Do nothing
             }
         });
+
+        // Initialize dark mode switch
+        @SuppressLint("UseSwitchCompatOrMaterialCode") Switch darkModeSwitch = findViewById(R.id.switchDarkMode);
+        boolean isDarkModeEnabled = preferences.getBoolean("dark_mode_enabled", true);
+        darkModeSwitch.setChecked(isDarkModeEnabled);
+        darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                setDarkMode(isChecked);
+            }
+        });
     }
 
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {// Navigate to the parent activity (MainActivity)
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
             NavUtils.navigateUpFromSameTask(this);
             return true;
         }
@@ -85,28 +106,17 @@ public class SettingsActivity extends AppCompatActivity {
                 break;
         }
 
+        // Set the new locale configuration
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        configuration.setLocale(newLocale);
+        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+
+        // Save the selected language in SharedPreferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("selected_language", newLocale.toString());
+        editor.putString("selected_language", newLocale.getLanguage());
         editor.apply();
-
-        // Check if the selected language is different from the current locale
-        if (!newLocale.equals(getResources().getConfiguration().locale)) {
-            // Update the locale settings
-            Locale.setDefault(newLocale);
-            Resources resources = getResources();
-            Configuration configuration = resources.getConfiguration();
-            DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-            configuration.setLocale(newLocale);
-            resources.updateConfiguration(configuration, displayMetrics);
-
-            // Recreate the activity to apply language changes
-            recreate();
-
-            // Show toast notification for language change
-            String toastMessage = getString(R.string.language_changed_toast);
-            Toast.makeText(SettingsActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
-        }
     }
 
     private String getLanguageName(String languageCode) {
@@ -119,4 +129,22 @@ public class SettingsActivity extends AppCompatActivity {
                 return "English";
         }
     }
+
+    private void setDarkMode(boolean isEnabled) {
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = preferences.edit();
+    editor.putBoolean("dark_mode_enabled", isEnabled);
+    editor.apply();
+
+    // Apply dark mode
+    int nightModeFlag = isEnabled ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO;
+    AppCompatDelegate.setDefaultNightMode(nightModeFlag);
+
+    // Recreate the activity to apply changes
+    recreate();
+
+    // Show toast notification for dark mode change
+    String toastMessage = getString(isEnabled ? R.string.dark_mode_enabled_toast : R.string.dark_mode_disabled_toast);
+    Toast.makeText(SettingsActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
+}
 }

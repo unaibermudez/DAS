@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Zereginen Kudeatzailea</string>
+    <string name="app_name">Task Master</string>
     <string name="channel_name">Zure kanalaren izena</string>
     <string name="channel_description">Zure kanalaren Deskribapena</string>
     <string name="main_toolbar_title">Zereginen Kudeatzailea</string>
@@ -24,6 +24,9 @@
     <string name="task_added_notification_text" >Zeregin berri bat gehitu da</string>
     <string name="confirm_delete_title" >Berretsi ezabatzea</string>
     <string name="confirm_delete_message" >Ziur zeregin hau ezabatu nahi duzula?</string>
+    <string name="dark_mode">Modu Iluna</string>
+    <string name="dark_mode_enabled_toast" >Modu iluna aktibatuta</string>
+    <string name="dark_mode_disabled_toast" >Modu iluna desaktibatuta</string>
 
 
 </resources>

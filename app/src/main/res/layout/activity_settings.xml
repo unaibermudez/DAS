@@ -7,8 +7,6 @@
     tools:context=".SettingsActivity">
 
     <!-- Toolbar -->
-
-    <!-- App Language Text -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -22,6 +20,7 @@
         app:titleTextColor="@color/white"
         tools:layout_editor_absoluteX="0dp" />
 
+    <!-- App Language Text -->
     <TextView
         android:id="@+id/textViewAppLanguage"
         android:layout_width="wrap_content"
@@ -29,6 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/app_language_selector"
+        android:textAlignment="viewStart"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +44,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:entries="@array/languages_array" /> <!-- Define the array in strings.xml -->
+        android:entries="@array/languages_array" />
+
+    <!-- Dark Mode Switch -->
+    <Switch
+        android:id="@+id/switchDarkMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:checked="false"
+        android:text="@string/dark_mode"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerLanguage"
+        tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

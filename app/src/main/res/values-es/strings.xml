@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-        <string name="app_name">Gestor de Tareas</string>
+        <string name="app_name">Task Master</string>
         <string name="channel_name">Nombre del canal</string>
         <string name="channel_description">Descripcion del canal</string>
         <string name="main_toolbar_title">Gestor de Tareas</string>
@@ -24,6 +24,9 @@
         <string name="task_added_notification_text" >Se ha añadido una nueva tarea</string>
     <string name="confirm_delete_title" >Confirmar Eliminar</string>
         <string name="confirm_delete_message" >¿Estás seguro de que deseas eliminar esta tarea?</string>
+        <string name="dark_mode">Modo Oscuro</string>
+        <string name="dark_mode_enabled_toast" >Modo oscuro activado</string>
+        <string name="dark_mode_disabled_toast" >Modo oscuro desactivado</string>
 
 
 </resources>

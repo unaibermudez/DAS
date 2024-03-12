@@ -44,18 +44,37 @@ public class MainActivity extends AppCompatActivity {
 
     // Define a request code to identify the settings activity
     private static final int SETTINGS_REQUEST_CODE = 100;
+    // Define default values for language and dark mode
+    private static final String DEFAULT_LANGUAGE = "es";
+    private static final boolean DEFAULT_DARK_MODE = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Retrieve the saved language from SharedPreferences
+        // Initialize SharedPreferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String selectedLanguage = preferences.getString("selected_language", "");
+
+        // Set default values if they are not already set
+        if (!preferences.contains("selected_language")) {
+            preferences.edit().putString("selected_language", DEFAULT_LANGUAGE).apply();
+        }
+        if (!preferences.contains("dark_mode_enabled")) {
+            preferences.edit().putBoolean("dark_mode_enabled", DEFAULT_DARK_MODE).apply();
+        }
+
+        // Retrieve the saved language and dark mode preferences
+        String selectedLanguage = preferences.getString("selected_language", DEFAULT_LANGUAGE);
+        boolean isDarkModeEnabled = preferences.getBoolean("dark_mode_enabled", DEFAULT_DARK_MODE);
 
         // Set the saved language
-        if (!selectedLanguage.isEmpty()) {
-            setLocale(selectedLanguage);
+        setLocale(selectedLanguage);
+
+        // Apply selected theme
+        if (isDarkModeEnabled) {
+            setTheme(R.style.AppTheme_Dark);
+        } else {
+            setTheme(R.style.AppTheme);
         }
 
         setContentView(R.layout.activity_main);
@@ -69,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Set up the toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
 
         // Step 1: Create Notification Channel
         createNotificationChannel();
@@ -204,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_share) {
@@ -241,4 +261,26 @@ public class MainActivity extends AppCompatActivity {
         configuration.setLocale(locale);
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
+
+    private void setDarkMode(boolean isEnabled) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("dark_mode_enabled", isEnabled);
+        editor.apply();
+
+        // Apply selected theme
+        if (isEnabled) {
+            setTheme(R.style.AppTheme_Dark);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
+
+        // Recreate the activity to apply changes
+        recreate();
+
+        // Show toast notification for dark mode change
+        String toastMessage = getString(isEnabled ? R.string.dark_mode_enabled_toast : R.string.dark_mode_disabled_toast);
+        Toast.makeText(MainActivity.this, toastMessage, Toast.LENGTH_SHORT).show();
+    }
+
 }
