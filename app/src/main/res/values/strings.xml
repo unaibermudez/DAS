@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Unai´s Task Manager</string>
+    <string name="app_name">Task Manager</string>
     <string name="channel_name">Your Channel Name</string>
     <string name="channel_description">Your Channel Description</string>
-    <string name="main_toolbar_title">Unai´s Task Manager</string>
+    <string name="main_toolbar_title">Task Manager</string>
     <string name="settings_toolbar_title">Settings</string>
     <string name="main_task_name">Task Name *</string>
     <string name="language_changed_toast">Language changed</string>

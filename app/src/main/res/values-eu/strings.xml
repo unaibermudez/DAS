@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Unairen Zereginen Kudeatzailea</string>
+    <string name="app_name">Zereginen Kudeatzailea</string>
     <string name="channel_name">Zure kanalaren izena</string>
     <string name="channel_description">Zure kanalaren Deskribapena</string>
-    <string name="main_toolbar_title">Unairen Zereginen Kudeatzailea</string>
+    <string name="main_toolbar_title">Zereginen Kudeatzailea</string>
     <string name="settings_toolbar_title">Ezarpenak</string>
     <string name="main_task_name">Zereginaren izena *</string>
     <string name="language_changed_toast">Hizkuntza aldatua</string>
